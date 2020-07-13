@@ -1,0 +1,65 @@
+﻿@model MinesweeperWebApp.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MainUserScreen</title>
+
+
+    <style>
+        *{
+            font-family: Roboto;
+        }
+        .wrapper {
+            display: flex;
+            width: 100%;
+        }
+
+        #sidebar {
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            z-index: 999;
+            transition: all 0.3s ease-in-out;
+            background-color: #846DF2;
+        }
+
+        #sidebar .sidebar-header {
+            padding: 20px;
+            color: rgba(255,255,255,1);
+            background-color: rgba(255,255,255,.2);
+        }
+
+        .customLink{
+            position: fixed;
+            left: 300px;
+            z-index: 3;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Welcome, @Model.Username!</h3>
+            </div>
+
+        </nav>
+        <div id="content">
+            <div style="width: 100vw; height: 100vh; left: 250px; top: 0; background-color: red; position: fixed;">
+                @Html.ActionLink("Start game", "startGame", new { htmlAttributes = new { @class = "form-control customLink" } })
+            </div> 
+            
+
+        </div>
+    </div>
+</body>
+</html>

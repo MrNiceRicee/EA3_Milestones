@@ -1,0 +1,132 @@
+﻿@model MinesweeperWebApp.Models.Board
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>MainUserScreen</title>
+
+
+        <style>
+            * {
+                font-family: Roboto;
+            }
+
+            body{
+                background-color: rgba(0,0,0,.1);
+            }
+
+            .wrapper {
+                display: flex;
+                width: 100%;
+            }
+
+            #sidebar {
+                width: 250px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                z-index: 999;
+                transition: all 0.3s ease-in-out;
+                background-color: #846DF2;
+            }
+
+            #sidebar .sidebar-header {
+                padding: 20px;
+                color: rgba(255,255,255,1);
+                background-color: rgba(255,255,255,.2);
+            }
+
+            .customButton {
+                background-color: rgba(0,0,0,.9);
+                transition: all .2s ease-in-out;
+                border: solid 1px;
+                border-color: rgba(0,0,0,.5);
+                margin: 2px;
+                border-radius: 10px;
+                color: rgba(255,255,255,.5);
+                box-shadow: 1px 2px 0px 0px rgba(0,0,0,.12);
+                outline: none;
+            }
+
+            .customButton:hover {
+                background-color: rgba(255,255,255,.5);
+                box-shadow: 3px 5px 0px 0px rgba(0,0,0,.12);
+                color: rgba(0,0,0,.9);
+                transform: translateY(-2px);
+            }
+
+            .customButton:active {
+                transform: translateY(0px);
+                box-shadow: 1px 2px 0px 0px rgba(0,0,0,.12);
+                transform: scale(.99);
+            }
+
+            .Bomb {
+                background-color: rgba(255,0,0,.5);
+                width: 80%;
+                height: 80%;
+            }
+
+
+            .FoundCell {
+                background-color: rgba(0,0,0,.1);
+                width: 80%;
+                height: 80%;                
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Welcome, @Model.PlayerName!</h3>
+                </div>
+
+            </nav>
+            <div id="content">
+                <div style="width: 100vw; height: 100vh; left: 250px; top: 0; position: fixed;">
+                    @using (Html.BeginForm("HandleButtonClick", "Minesweeper"))
+                    {
+                        for (int x = 0; x < Model.Size; x++)
+                        {
+                            for (int y = 0; y < Model.Size; y++)
+                            {
+                                <button type="submit" name="mine" value="@x,@y" class="customButton" style="height:calc((90vh)/@Model.Size);width:calc((80%)/@Model.Size);">
+                                    @if (Model.getCell(x, y).Visited)
+                                    {
+                                        if (Model.getCell(x, y).Live)
+                                        {
+                                            <div class="">BOMB</div>
+
+                                        }
+                                        else
+                                        {
+                                            <div class="">@Model.getCell(x, y).LiveNeighbors</div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div>.</div>
+
+                                    }
+
+                                </button>
+                            }
+                            <br />
+                        }
+                    }
+                </div>
+                <!--Generate grid-->
+
+            </div>
+        </div>
+    </body>
+</html>
