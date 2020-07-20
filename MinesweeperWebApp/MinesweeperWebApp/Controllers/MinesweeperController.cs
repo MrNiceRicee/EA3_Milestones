@@ -12,12 +12,10 @@ namespace MinesweeperWebApp.Controllers
     public class MinesweeperController : Controller
     {
         // GET: Minesweeper
-        static int failedlogin = -1;
         static Board gameBoard = new Board();
         static string username = "";
         public ActionResult Index()
         {
-            failedlogin = -1;       //just resets the login count
             username = "";
             return View("Login");
         }
@@ -30,25 +28,11 @@ namespace MinesweeperWebApp.Controllers
                 username = user.Username;
                 return View("MainUserScreen", user);
             }
-            else
-            {
-                username = "";
-                failedlogin++;  //make it to 0
-                if (failedlogin + 1 == 1)   //check if its initial start up
-                {
-                    return View("Login");
-                }
-                else
-                {
-                    user.ID = -10;
-                    return View("Login", user);
-                }              
-            }
+            return View("Login");
         }
 
         public ActionResult ProcessANewRegister(User user)
         {
-            failedlogin = -1;       //just resets the login count
             SecurityDAO securityDAO = new SecurityDAO();
             securityDAO.RegisterUser(user);
             return View("Login");

@@ -255,7 +255,8 @@
                     <br />
                     <div class="form-group">
                         <div class="col-md-10" id="">
-                            @Html.EditorFor(user => user.Username, new { htmlAttributes = new { @class = "form-control userinput", placeholder = " ", style = "border-bottom-color: rgba(255,0,0,.5)" } })
+                            @Html.EditorFor(user => user.Username, new { htmlAttributes = new { @class = "form-control userinput", placeholder = " ", style = "border-bottom-color: rgba(255,0,0,.5)", data_val_required = "Hello" } })
+                            @Html.ValidationMessageFor(user => user.Username, "", new { @class = "warning" })
                             <label class="customPlaceHolder">Username</label>
 
                         </div>
@@ -263,7 +264,8 @@
                     <br />
                     <div class="form-group">
                         <div class="col-md-10" id="">
-                            @Html.EditorFor(user => user.Password, new { htmlAttributes = new { @class = "form-control userinput", placeholder = " ", style="border-bottom-color: rgba(255,0,0,.5)" } })
+                            @Html.EditorFor(user => user.Password, new { htmlAttributes = new { @class = "form-control userinput", placeholder = " ", style = "border-bottom-color: rgba(255,0,0,.5)", data_val_required = "Hello" } })
+                            @Html.ValidationMessageFor(user => user.Password, "", new { @class = "warning" })
                             <label class="customPlaceHolder">Password</label>
 
                         </div>

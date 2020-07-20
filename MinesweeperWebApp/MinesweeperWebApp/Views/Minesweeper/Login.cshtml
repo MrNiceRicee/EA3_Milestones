@@ -98,6 +98,10 @@
             transition: all .5s ease-in-out;
         }
 
+        .maindiv:hover {
+            box-shadow: 6px 8px 0px -1px rgba(0,0,0,.2);
+        }
+
         .left {
             width: 150px;
             height: auto;
@@ -106,6 +110,11 @@
             border-radius: 4px;
             box-shadow: 3px 0px 0px 0px rgba(0,0,0,.12);
         }
+
+        .left:hover {
+            box-shadow: 5px 0px 0px 0px rgba(0,0,0,.12);
+        }
+
         .right {
             padding: 40px 30px;
         }
@@ -202,19 +211,23 @@
                 <br />
                 @using (Html.BeginForm("Login", "Minesweeper", FormMethod.Post))
                 {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
                     <div class="form-group">
                         <div class="col-md-10" id="">
-                            @Html.EditorFor(user => user.Username, new { htmlAttributes = new { @class = "form-control userinput", placeholder = " " } })
+                            @Html.EditorFor(user => user.Username, new { htmlAttributes = new { @class = "form-control userinput", placeholder = " ", data_val_required = "Hello" } })
+                            @Html.ValidationMessageFor(user => user.Username, "", new { @class = "warning" })
                             <label class="customPlaceHolder">Username</label>
-
                         </div>
                     </div>
                     <br />
                     <div class="form-group">
                         <div class="col-md-10" id="">
-                            @Html.EditorFor(user => user.Password, new { htmlAttributes = new { @class = "form-control userinput", placeholder = " " } })
+                            @Html.EditorFor(user => user.Password, new { htmlAttributes = new { @class = "form-control userinput", placeholder = " ", data_val_required = "Hello" } })
+                            @Html.ValidationMessageFor(user => user.Password, "", new { @class = "warning" })
                             <label class="customPlaceHolder">Password</label>
-
                         </div>
                     </div>
                     <br />
@@ -224,7 +237,7 @@
                     }
                     <input type="submit" value="Login" class="btn btn-default button primary-background" />
                     <div>Don't have an account? @Html.ActionLink("Register", "showRegisterForm")</div>
-                    
+
                 }
             </div>
         </div>

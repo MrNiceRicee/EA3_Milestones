@@ -27,10 +27,7 @@
             }
 
             #sidebar {
-                width: 250px;
-                position: fixed;
-                top: 0;
-                left: 0;
+                width: 10vw;
                 height: 100vh;
                 z-index: 999;
                 transition: all 0.3s ease-in-out;
@@ -43,8 +40,24 @@
                 background-color: rgba(255,255,255,.2);
             }
 
+            #content{
+                transition: all;
+            }
+
+            .flexbox-mines {
+                display: flex;
+                flex-wrap: nowrap;                
+                background-color: rgba(0,0,0,.5);
+                align-content: stretch;
+                align-items: stretch;
+                justify-content: space-between;
+            }
+
             .customButton {
+                width: 100px;
+                height: 100px;
                 background-color: rgba(0,0,0,.9);
+                text-align: center;
                 transition: all .2s ease-in-out;
                 border: solid 1px;
                 border-color: rgba(0,0,0,.5);
@@ -53,6 +66,7 @@
                 color: rgba(255,255,255,.5);
                 box-shadow: 1px 2px 0px 0px rgba(0,0,0,.12);
                 outline: none;
+
             }
 
             .customButton:hover {
@@ -81,40 +95,44 @@
                 height: 80%;                
             }
 
+
+
+
+
         </style>
     </head>
     <body>
         <div class="wrapper">
+
             <nav id="sidebar">
                 <div class="sidebar-header">
                     <h3>Welcome, @Model.PlayerName!</h3>
                 </div>
-
             </nav>
+
             <div id="content">
-                <div style="width: 100vw; height: 100vh; left: 250px; top: 0; position: fixed;">
+                <div class ="flexbox-mines">
                     @using (Html.BeginForm("HandleButtonClick", "Minesweeper"))
                     {
                         for (int x = 0; x < Model.Size; x++)
                         {
                             for (int y = 0; y < Model.Size; y++)
                             {
-                                <button type="submit" name="mine" value="@x,@y" class="customButton" style="height:calc((90vh)/@Model.Size);width:calc((80%)/@Model.Size);">
+                                <button type="submit" name="mine" value="@x,@y" class="customButton">
                                     @if (Model.getCell(x, y).Visited)
                                     {
                                         if (Model.getCell(x, y).Live)
                                         {
-                                            <div class="">BOMB</div>
-
+                                            <span class="">BOMB</span>
                                         }
                                         else
                                         {
-                                            <div class="">@Model.getCell(x, y).LiveNeighbors</div>
+                                            <span class="">@Model.getCell(x, y).LiveNeighbors</span>
                                         }
                                     }
                                     else
                                     {
-                                        <div>.</div>
+                                        <span></span>
 
                                     }
 
