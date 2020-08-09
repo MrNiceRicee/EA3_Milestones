@@ -70,3 +70,6 @@ D:\Users\Joshua\Documents\School\GCU\2020 - summer 2\Enterprise Applications 3\M
 D:\Users\Joshua\Documents\School\GCU\2020 - summer 2\Enterprise Applications 3\Milestones\MinesweeperWebApp\MinesweeperWebApp\obj\Debug\MinesweeperWebApp.csproj.CopyComplete
 D:\Users\Joshua\Documents\School\GCU\2020 - summer 2\Enterprise Applications 3\Milestones\MinesweeperWebApp\MinesweeperWebApp\obj\Debug\MinesweeperWebApp.dll
 D:\Users\Joshua\Documents\School\GCU\2020 - summer 2\Enterprise Applications 3\Milestones\MinesweeperWebApp\MinesweeperWebApp\obj\Debug\MinesweeperWebApp.pdb
+D:\Users\Joshua\Documents\School\GCU\2020 - summer 2\Enterprise Applications 3\Milestones\MinesweeperWebApp\MinesweeperWebApp\bin\NLog.config
+D:\Users\Joshua\Documents\School\GCU\2020 - summer 2\Enterprise Applications 3\Milestones\MinesweeperWebApp\MinesweeperWebApp\bin\NLog.dll
+D:\Users\Joshua\Documents\School\GCU\2020 - summer 2\Enterprise Applications 3\Milestones\MinesweeperWebApp\MinesweeperWebApp\bin\NLog.xml

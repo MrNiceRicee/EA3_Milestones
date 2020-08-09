@@ -1,150 +1,76 @@
 ﻿@model MinesweeperWebApp.Models.Board
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "content"
+    };
 }
 
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>MainUserScreen</title>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MainUserScreen</title>
 
 
-        <style>
-            * {
-                font-family: Roboto;
-            }
+    <style>
+        * {
+            font-family: Roboto;
+        }
 
-            body{
-                background-color: rgba(0,0,0,.1);
-            }
+        body {
+            background-color: rgba(0,0,0,.1);
+        }
 
-            .wrapper {
-                display: flex;
-                width: 100%;
-            }
+        .wrapper {
+            display: flex;
+            width: 100%;
+        }
 
-            #sidebar {
-                width: 10vw;
-                height: 100vh;
-                z-index: 999;
-                transition: all 0.3s ease-in-out;
-                background-color: #846DF2;
-            }
+        #sidebar {
+            width: 10vw;
+            height: 100vh;
+            z-index: 999;
+            transition: all 0.3s ease-in-out;
+            background-color: #846DF2;
+        }
 
-            #sidebar .sidebar-header {
-                padding: 20px;
-                color: rgba(255,255,255,1);
-                background-color: rgba(255,255,255,.2);
-            }
+        #sidebar .sidebar-header {
+            padding: 20px;
+            color: rgba(255,255,255,1);
+            background-color: rgba(255,255,255,.2);
+        }
 
-            #content{
-                transition: all;
-            }
-
-            .flexbox-mines {
-                display: flex;
-                flex-wrap: nowrap;                
-                background-color: rgba(0,0,0,.5);
-                align-content: stretch;
-                align-items: stretch;
-                justify-content: space-between;
-            }
-
-            .customButton {
-                width: 100px;
-                height: 100px;
-                background-color: rgba(0,0,0,.9);
-                text-align: center;
-                transition: all .2s ease-in-out;
-                border: solid 1px;
-                border-color: rgba(0,0,0,.5);
-                margin: 2px;
-                border-radius: 10px;
-                color: rgba(255,255,255,.5);
-                box-shadow: 1px 2px 0px 0px rgba(0,0,0,.12);
-                outline: none;
-
-            }
-
-            .customButton:hover {
-                background-color: rgba(255,255,255,.5);
-                box-shadow: 3px 5px 0px 0px rgba(0,0,0,.12);
-                color: rgba(0,0,0,.9);
-                transform: translateY(-2px);
-            }
-
-            .customButton:active {
-                transform: translateY(0px);
-                box-shadow: 1px 2px 0px 0px rgba(0,0,0,.12);
-                transform: scale(.99);
-            }
-
-            .Bomb {
-                background-color: rgba(255,0,0,.5);
-                width: 80%;
-                height: 80%;
-            }
+        #content {
+            transition: all;
+        }
 
 
-            .FoundCell {
-                background-color: rgba(0,0,0,.1);
-                width: 80%;
-                height: 80%;                
-            }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
 
-
-
-
-
-        </style>
-    </head>
-    <body>
-        <div class="wrapper">
-
-            <nav id="sidebar">
-                <div class="sidebar-header">
-                    <h3>Welcome, @Model.PlayerName!</h3>
-                </div>
-            </nav>
-
-            <div id="content">
-                <div class ="flexbox-mines">
-                    @using (Html.BeginForm("HandleButtonClick", "Minesweeper"))
-                    {
-                        for (int x = 0; x < Model.Size; x++)
-                        {
-                            for (int y = 0; y < Model.Size; y++)
-                            {
-                                <button type="submit" name="mine" value="@x,@y" class="customButton">
-                                    @if (Model.getCell(x, y).Visited)
-                                    {
-                                        if (Model.getCell(x, y).Live)
-                                        {
-                                            <span class="">BOMB</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="">@Model.getCell(x, y).LiveNeighbors</span>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <span></span>
-
-                                    }
-
-                                </button>
-                            }
-                            <br />
-                        }
-                    }
-                </div>
-                <!--Generate grid-->
-
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Welcome, @Model.PlayerName!</h3>
             </div>
-        </div>
-    </body>
+        </nav>
+
+        
+
+        @using (Ajax.BeginForm("HandleButtonClick", "Minesweeper", ajaxOptions))
+        {
+            <div id="content"> 
+                @Html.Partial("~/Views/Shared/_GameField.cshtml", Model);
+            </div>
+        }
+
+    </div>
+</body>
 </html>
