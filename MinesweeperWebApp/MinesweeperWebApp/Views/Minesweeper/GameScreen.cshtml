@@ -14,8 +14,12 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>MainUserScreen</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
 
 
     <style>
@@ -40,37 +44,69 @@
             background-color: #846DF2;
         }
 
-        #sidebar .sidebar-header {
-            padding: 20px;
-            color: rgba(255,255,255,1);
-            background-color: rgba(255,255,255,.2);
-        }
+            #sidebar .sidebar-header {
+                padding: 20px;
+                color: rgba(255,255,255,1);
+                background-color: rgba(255,255,255,.2);
+            }
 
         #content {
             transition: all;
         }
+    </style>
 
+    <style>
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index 100;
+            padding 48px 0 0;
+            box-shadow: inset -1 0 0 rgba(0,0,0,.1)
+        }
 
+        .sidebar-sticky {
+            top: 0;
+            height: calc(100vh - 48px);
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body>
-    <div class="wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">MineSweeper</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto"></ul>
 
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3>Welcome, @Model.PlayerName!</h3>
-            </div>
-        </nav>
+            <button class="btn btn-outline-danger my-2 my-sm-0" onclick="window.location.reload()" type="reset" id="reset">Reset</button>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="col-9">
+            <!--
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Welcome, ATSYMBOLModel.PlayerName!</h3>
+                </div>
+            </nav>
+            -->
 
-        
-
-        @using (Ajax.BeginForm("HandleButtonClick", "Minesweeper", ajaxOptions))
-        {
-            <div id="content"> 
-                @Html.Partial("~/Views/Shared/_GameField.cshtml", Model);
-            </div>
-        }
-
+            @using (Ajax.BeginForm("HandleButtonClick", "Minesweeper", ajaxOptions))
+            {
+                <div id="content">
+                    @Html.Partial("~/Views/Shared/_GameField.cshtml", Model)
+                </div>
+            }
+        </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </body>
 </html>

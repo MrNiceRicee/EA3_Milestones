@@ -53,35 +53,82 @@
         width: 80%;
         height: 80%;
     }
-
 </style>
 
-<div class="flexbox-mines">
-        @for (int x = 0; x < Model.Size; x++)
+<style>
+</style>
+
+<div id="container" class="container-fluid">
+    <br />
+    <div class="row" style="width: 100%; margin-left: 33.3%;">
+        @for (int y = 0; y < Model.Size; y++)
         {
-            for (int y = 0; y < Model.Size; y++)
-            {
-                    <button type="submit" name="mine" value="@x,@y" class="customButton" style="height: calc(100vh/Model.Size); width: calc(100vh/Model.Size);" >
-                        @if (Model.getCell(x, y).Visited)
-                        {
-                            if (Model.getCell(x, y).Live)
+            <div class="row">
+                @for (int x = 0; x < Model.Size; x++)
+                {
+                    <div class="col pr-0 pl-0" style="flex-grow: 0; line-height: 0;">
+                        <button type="submit" name="mine" id="@x-@y" value="@x,@y" class="btn-dark jquerySelector" style="height: 75px; width: 75px;">
+                            @if (Model.getCell(x, y).Visited)
                             {
-                                <span class="Bomb">BOM</span>
+                                if (Model.getCell(x, y).Live)
+                                {
+                                    <span>OOF!</span>
+                                    <script>
+                                        $("#@x-@y").attr("class", "btn-danger");
+                                    </script>
+                                }
+                                else
+                                {
+                                    if (@Model.getCell(x, y).LiveNeighbors == 0)
+                                    {
+                                        <span style="color: lawngreen">@Model.getCell(x, y).LiveNeighbors</span>
+                                    }
+                                    else if (@Model.getCell(x, y).LiveNeighbors == 1)
+                                    {
+                                        <span style="color: gold">@Model.getCell(x, y).LiveNeighbors</span>
+                                    }
+                                    else if (@Model.getCell(x, y).LiveNeighbors == 2)
+                                    {
+                                        <span style="color: darkorange">@Model.getCell(x, y).LiveNeighbors</span>
+                                    }
+                                    else if (@Model.getCell(x, y).LiveNeighbors >= 3)
+                                    {
+                                        <span style="color: orangered">@Model.getCell(x, y).LiveNeighbors</span>
+                                    }
+                                }
                             }
                             else
                             {
-                                <span class="FoundCell">@Model.getCell(x, y).LiveNeighbors</span>
+                                <span></span>
                             }
-                        }
-                        else
-                        {
-                            <span></span>
+                        </button>
+                    </div>
+                    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+                    <!--
+            <button type="submit" name="mine" value="ATSYMBOLx,ATSYMBOLy" class="customButton" style="height: calc(50vh/Model.Size); width: calc(50vh/Model.Size);" >
+                ATSYMBOLif (Model.getCell(x, y).Visited)
+                {
+                    if (Model.getCell(x, y).Live)
+                    {
+                        <span class="Bomb">BOM</span>
+                    }
+                    else
+                    {
+                        <span class="FoundCell">ATSYMBOLModel.getCell(x, y).LiveNeighbors</span>
+                    }
+                }
+                else
+                {
+                    <span></span>
 
-                        }
-                    </button>
+                }
+            </button>
+            -->
+                    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-            }
+                }
+            </div>
             <div class="break-line"></div>
         }
-    
+    </div>
 </div>
