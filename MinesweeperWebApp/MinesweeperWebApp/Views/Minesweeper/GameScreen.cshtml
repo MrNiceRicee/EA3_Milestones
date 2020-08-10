@@ -19,6 +19,7 @@
     <title>MainUserScreen</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 
 
 
@@ -73,6 +74,29 @@
             overflow-y: auto;
         }
     </style>
+
+    <script>
+        $(document).ready(function(){
+            $(document).contextmenu(function () {
+                return false;
+            });
+            $('.game-button').mousedown(function (event) {
+
+                if (event.which == 3) {
+                    //console.log("event 3. right click");
+                    //console.log(this.getAttribute("value"));
+
+                    //send the info to the controler
+                    $.post("@Url.Action("HandleOnRightButtonClick", "Minesweeper")", {mine: this.getAttribute("value") }, function (data) {
+                        //get some data from the method
+                        //console.log(data);
+                        // refresh the entire page
+                        $("body").html(data);
+                    });
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

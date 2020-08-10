@@ -244,7 +244,6 @@
     <Content Include="Views\Minesweeper\MainUserScreen.cshtml" />
     <Content Include="Views\Minesweeper\GameScreen.cshtml" />
     <Content Include="Views\Minesweeper\Register.cshtml" />
-    <Content Include="Views\Shared\_GameField.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -256,6 +255,8 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Shared\_GameField.cshtml" />
+    <Content Include="Views\Shared\_GameSettings.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

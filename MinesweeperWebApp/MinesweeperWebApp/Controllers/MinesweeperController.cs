@@ -67,6 +67,7 @@ namespace MinesweeperWebApp.Controllers
             return View("GameScreen", gameBoard);
         }
 
+
         [HttpPost]
         public ActionResult HandleButtonClick(string mine)
         {
@@ -80,12 +81,32 @@ namespace MinesweeperWebApp.Controllers
                 gameBoard.getCell(x, y).LiveNeighbors = gameBoard.checkNeighbor(gameBoard.getCell(x,y),1);
                 if (!gameBoard.getCell(x,y).Live)
                 {
+                    if (gameBoard.getCells().Count(a=>a.Visited) == gameBoard.getCells().Count(a=>!a.Live))
+                    {
+                        Debug.WriteLine("GAMEWON: " + mine);
+                    }
                     gameBoard.revealNearbyZero(gameBoard.getCell(x, y));
+                }
+                if (gameBoard.getCell(x,y).Live)
+                {
+                    //GAME OVER!
+                    Debug.WriteLine("GAME LOST: " + mine);
+
                 }
             }
             return PartialView("_GameField",gameBoard);
         }
 
+        [HttpPost]
+        public ActionResult HandleOnRightButtonClick(string mine)
+        {
+            Debug.WriteLine("RIGHT CLICK: "+mine);
+            string[] info = mine.Split(',');
+            int x = int.Parse(info[0]);
+            int y = int.Parse(info[1]);
+            gameBoard.getCell(x, y).Flagged = !gameBoard.getCell(x, y).Flagged;
+            return View("_GameField", gameBoard);
+        }
 
     }
 }

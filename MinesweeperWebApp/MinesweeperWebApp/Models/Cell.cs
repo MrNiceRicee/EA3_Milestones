@@ -17,6 +17,7 @@ namespace MinesweeperWebApp.Models
 
         public int LiveNeighbors { get; set; }
 
+        public bool Flagged { get; set; }
 
         public Cell()
         {
@@ -25,6 +26,7 @@ namespace MinesweeperWebApp.Models
             Visited = false;
             Live = false;
             LiveNeighbors = 0;
+            Flagged = false;
         }
     }
 }

@@ -1,62 +1,60 @@
 ﻿@model MinesweeperWebApp.Models.Board
 
 
-<style>
-    .flexbox-mines {
-        display: flex;
-        flex-wrap: wrap;
-        background-color: rgba(0,0,255,.1);
-        min-width: 100px;
-    }
+    <style>
+        .flexbox-mines {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: rgba(0,0,255,.1);
+            min-width: 100px;
+        }
 
-    .break-line{
-        flex-basis:100%;
-        height:0;
-    }
+        .break-line{
+            flex-basis:100%;
+            height:0;
+        }
 
-    .customButton {
-        width: 90px;
-        height: 90px;
-        background-color: rgba(0,0,0,.9);
-        text-align: center;
-        transition: all .2s ease-in-out;
-        border: solid 1px;
-        border-color: rgba(0,0,0,.5);
-        margin: 2px;
-        border-radius: 5px;
-        color: rgba(255,255,255,.5);
-        box-shadow: 1px 2px 0px 0px rgba(0,0,0,.12);
-        outline: none;
-    }
+        .customButton {
+            width: 90px;
+            height: 90px;
+            background-color: rgba(0,0,0,.9);
+            text-align: center;
+            transition: all .2s ease-in-out;
+            border: solid 1px;
+            border-color: rgba(0,0,0,.5);
+            margin: 2px;
+            border-radius: 5px;
+            color: rgba(255,255,255,.5);
+            box-shadow: 1px 2px 0px 0px rgba(0,0,0,.12);
+            outline: none;
+        }
 
-    .customButton:hover {
-        background-color: rgba(255,255,255,.5);
-        box-shadow: 3px 5px 0px 0px rgba(0,0,0,.12);
-        color: rgba(0,0,0,.9);
-        transform: translateY(-2px);
-    }
+        .customButton:hover {
+            background-color: rgba(255,255,255,.5);
+            box-shadow: 3px 5px 0px 0px rgba(0,0,0,.12);
+            color: rgba(0,0,0,.9);
+            transform: translateY(-2px);
+        }
 
-    .customButton:active {
-        transform: translateY(0px);
-        box-shadow: 1px 2px 0px 0px rgba(0,0,0,.12);
-        transform: scale(.99);
-    }
+        .customButton:active {
+            transform: translateY(0px);
+            box-shadow: 1px 2px 0px 0px rgba(0,0,0,.12);
+            transform: scale(.99);
+        }
 
-    .Bomb {
-        background-color: rgba(255,0,0,.5);
-        width: 80%;
-        height: 80%;
-    }
+        .Bomb {
+            background-color: rgba(255,0,0,.5);
+            width: 80%;
+            height: 80%;
+        }
 
-    .FoundCell {
-        background-color: rgba(0,0,0,.1);
-        width: 80%;
-        height: 80%;
-    }
-</style>
+        .FoundCell {
+            background-color: rgba(0,0,0,.1);
+            width: 80%;
+            height: 80%;
+        }
+    </style>
 
-<style>
-</style>
 
 <div id="container" class="container-fluid">
     <br />
@@ -67,7 +65,7 @@
                 @for (int x = 0; x < Model.Size; x++)
                 {
                     <div class="col pr-0 pl-0" style="flex-grow: 0; line-height: 0;">
-                        <button type="submit" name="mine" id="@x-@y" value="@x,@y" class="btn-dark jquerySelector" style="height: 75px; width: 75px;">
+                        <button type="submit" name="mine" id="@x-@y" value="@x,@y" class="btn-dark jquerySelector game-button" style="height: 75px; width: 75px;">
                             @if (Model.getCell(x, y).Visited)
                             {
                                 if (Model.getCell(x, y).Live)
@@ -100,6 +98,9 @@
                             else
                             {
                                 <span></span>
+                            }
+                            @if (Model.getCell(x,y).Flagged){
+                                <span> FLAGGED</span>
                             }
                         </button>
                     </div>
