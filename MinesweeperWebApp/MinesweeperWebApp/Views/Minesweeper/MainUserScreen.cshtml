@@ -41,9 +41,22 @@
             }
 
         .customLink {
-            position: fixed;
-            left: 300px;
             z-index: 3;
+            color: rgba(255,255,255,.8);
+        }
+
+        .startGame {
+            margin: 0;
+            top: 50%;
+            left: 30%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            position: absolute;
+            background-color: rgba(0,0,0,.1);
+            text-align: center;
+            padding: 50px 0 ;
+            max-width: 50%;
+            min-width: 300px;
         }
     </style>
 
@@ -59,10 +72,10 @@
         <div id="content">
             <div style="width: 100vw; height: 100vh; left: 250px; top: 0; background-color: rgba(255,255,255,.5); position: fixed;">
                 <!-- Have setup game here-->
-                @Html.ActionLink("Start game", "startGame", new { htmlAttributes = new { @class = "form-control customLink" } })
-            </div> 
-            
-
+                <div class="startGame">
+                    @Html.ActionLink("Start game", "startGame", new { htmlAttributes = new { @class = "form-control customLink" } })
+                </div>
+            </div>          
         </div>
     </div>
 </body>

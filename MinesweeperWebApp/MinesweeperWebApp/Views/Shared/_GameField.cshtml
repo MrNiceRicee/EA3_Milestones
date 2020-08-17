@@ -1,72 +1,114 @@
 ﻿@model MinesweeperWebApp.Models.Board
 
 
-    <style>
-        .flexbox-mines {
-            display: flex;
-            flex-wrap: wrap;
-            background-color: rgba(0,0,255,.1);
-            min-width: 100px;
-        }
+<style>
+    .flexbox-mines {
+        display: flex;
+        flex-wrap: wrap;
+        background-color: rgba(0,0,255,.1);
+        min-width: 100px;
+    }
 
-        .break-line{
-            flex-basis:100%;
-            height:0;
-        }
+    .break-line {
+        flex-basis: 100%;
+        height: 0;
+    }
 
-        .customButton {
-            width: 90px;
-            height: 90px;
-            background-color: rgba(0,0,0,.9);
-            text-align: center;
-            transition: all .2s ease-in-out;
-            border: solid 1px;
-            border-color: rgba(0,0,0,.5);
-            margin: 2px;
-            border-radius: 5px;
-            color: rgba(255,255,255,.5);
-            box-shadow: 1px 2px 0px 0px rgba(0,0,0,.12);
-            outline: none;
-        }
+    .customButton {
+        width: 90px;
+        height: 90px;
+        background-color: rgba(0,0,0,.9);
+        text-align: center;
+        transition: all .2s ease-in-out;
+        border: solid 1px;
+        border-color: rgba(0,0,0,.5);
+        margin: 2px;
+        border-radius: 5px;
+        color: rgba(255,255,255,.5);
+        box-shadow: 1px 2px 0px 0px rgba(0,0,0,.12);
+        outline: none;
+    }
 
-        .customButton:hover {
-            background-color: rgba(255,255,255,.5);
-            box-shadow: 3px 5px 0px 0px rgba(0,0,0,.12);
-            color: rgba(0,0,0,.9);
-            transform: translateY(-2px);
-        }
+    .customButton:hover {
+        background-color: rgba(255,255,255,.5);
+        box-shadow: 3px 5px 0px 0px rgba(0,0,0,.12);
+        color: rgba(0,0,0,.9);
+        transform: translateY(-2px);
+    }
 
-        .customButton:active {
-            transform: translateY(0px);
-            box-shadow: 1px 2px 0px 0px rgba(0,0,0,.12);
-            transform: scale(.99);
-        }
+    .customButton:active {
+        transform: translateY(0px);
+        box-shadow: 1px 2px 0px 0px rgba(0,0,0,.12);
+        transform: scale(.99);
+    }
 
-        .Bomb {
-            background-color: rgba(255,0,0,.5);
-            width: 80%;
-            height: 80%;
-        }
+    .Bomb {
+        background-color: rgba(255,0,0,.5);
+        width: 80%;
+        height: 80%;
+    }
 
-        .FoundCell {
-            background-color: rgba(0,0,0,.1);
-            width: 80%;
-            height: 80%;
-        }
-    </style>
+    .FoundCell {
+        background-color: rgba(0,0,0,.1);
+        width: 80%;
+        height: 80%;
+    }
+</style>
+
+<script>
+    $(document).ready(function(){
+        $(document).contextmenu(function () {
+            return false;
+        });
+        $('.game-button').mousedown(function (event) {
+
+            if (event.which == 3) {
+                console.log("event 3. right click");
+                console.log(this.getAttribute("value"));
+
+                //send the info to the controler
+                $.post("@Url.Action("HandleOnRightButtonClick", "Minesweeper")", { mine: this.getAttribute("value") }, function (data) {
+                    //get some data from the method
+                    //console.log(data);
+                    // refresh the entire page
+                    //console.log("test");
+                    //$("content").html(data);
+                });
+            }
+        });
+    });
+</script>
 
 
 <div id="container" class="container-fluid">
     <br />
-    <div class="row" style="width: 100%; margin-left: 33.3%;">
+    <div style="margin-left: 25%">
+        @if (Model.GameEnd)
+        {
+            if (Model.GameWin)
+            {
+                <p>CONGRATULATIONS YOU WON!</p>
+            }
+            else
+            {
+                <p>Sorry for the lost!</p>
+            }
+        }
+    </div>
+    <div class="row" style="width: 100%; margin-left: 25%;">
         @for (int y = 0; y < Model.Size; y++)
         {
-            <div class="row">
+            <div class="row" style="flex-direction: row;">
                 @for (int x = 0; x < Model.Size; x++)
                 {
-                    <div class="col pr-0 pl-0" style="flex-grow: 0; line-height: 0;">
-                        <button type="submit" name="mine" id="@x-@y" value="@x,@y" class="btn-dark jquerySelector game-button" style="height: 75px; width: 75px;">
-                            @if (Model.getCell(x, y).Visited)
+                    <div class="col pr-0 pl-0" style="flex-grow: 0; flex-shrink: 0;line-height: 0;">
+                        <button type="submit" name="mine" id="@x-@y" value="@x,@y" class="btn-dark jquerySelector game-button" style="height: 50px; width: 50px;">
+
+                            @if (Model.getCell(x, y).Flagged)
+                            {
+                                <span>FLAGGED</span>
+                            }
+                            else if (Model.getCell(x, y).Visited)
                             {
                                 if (Model.getCell(x, y).Live)
                                 {
@@ -99,32 +141,29 @@
                             {
                                 <span></span>
                             }
-                            @if (Model.getCell(x,y).Flagged){
-                                <span> FLAGGED</span>
-                            }
                         </button>
                     </div>
                     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
                     <!--
-            <button type="submit" name="mine" value="ATSYMBOLx,ATSYMBOLy" class="customButton" style="height: calc(50vh/Model.Size); width: calc(50vh/Model.Size);" >
-                ATSYMBOLif (Model.getCell(x, y).Visited)
-                {
-                    if (Model.getCell(x, y).Live)
-                    {
-                        <span class="Bomb">BOM</span>
-                    }
-                    else
-                    {
-                        <span class="FoundCell">ATSYMBOLModel.getCell(x, y).LiveNeighbors</span>
-                    }
-                }
-                else
-                {
-                    <span></span>
+                    <button type="submit" name="mine" value="ATSYMBOLx,ATSYMBOLy" class="customButton" style="height: calc(50vh/Model.Size); width: calc(50vh/Model.Size);" >
+                        ATSYMBOLif (Model.getCell(x, y).Visited)
+                        {
+                            if (Model.getCell(x, y).Live)
+                            {
+                                <span class="Bomb">BOM</span>
+                            }
+                            else
+                            {
+                                <span class="FoundCell">ATSYMBOLModel.getCell(x, y).LiveNeighbors</span>
+                            }
+                        }
+                        else
+                        {
+                            <span></span>
 
-                }
-            </button>
-            -->
+                        }
+                    </button>
+                    -->
                     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
                 }

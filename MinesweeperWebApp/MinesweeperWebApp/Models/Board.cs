@@ -17,12 +17,17 @@ namespace MinesweeperWebApp.Models
 
         Random random = new Random();
 
+        public bool GameEnd { get; set; }
+        public bool GameWin { get; set; }
+
         public Board(int size, double difficulty)
         {
             Size = size;
             Grid = new Cell[size, size];
             Difficulty = difficulty;
             setupLiveNeighbors(Grid);
+            GameEnd = false;
+            GameWin = false;
         }
 
         public Board()
